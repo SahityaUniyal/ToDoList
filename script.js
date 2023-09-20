@@ -12,6 +12,7 @@ const addBtn = document.getElementById("add");
 const inputTask = document.querySelector(".task");
 const taskListDisplay = document.querySelector(".tasks");
 const deleteAllBtn = document.querySelector(".deleteBtn");
+const searchInput = document.querySelector(".search");
 
 // Initializing taskList array from local storage or create an empty array
 let taskList = JSON.parse(localStorage.getItem("taskList")) || [];
@@ -20,11 +21,12 @@ let taskList = JSON.parse(localStorage.getItem("taskList")) || [];
 addBtn.addEventListener('click', addItem);
 deleteAllBtn.addEventListener('click', delAll);
 taskListDisplay.addEventListener('click', listClicked);
+searchInput.addEventListener('input', filterSearch);
 
 
 
 // Initial Display of Tasks
-display();
+display(taskList);
 
 // Function to add a new task to the list
 function addItem(e) {
@@ -37,7 +39,7 @@ function addItem(e) {
     taskList.push(newTask);
     inputTask.value = "";// Clear input field
     saveTaskList(); // Save the updated taskList to local storage
-    display(); // Display the updated taskList
+    display(taskList); // Display the updated taskList
 }
 
 // Delete all entries in tasklist
@@ -45,11 +47,11 @@ function delAll(e) {
     e.preventDefault();
     taskList = []; // Clear the task list
     saveTaskList(); // Save the empty task list to local storage
-    display(); // Update the task list display
+    display(taskList); // Update the task list display
 }
 
-// Function to display tasks
-function display() {
+// Function to display tasks in the taskList provided
+function display(taskList) {
     taskListDisplay.innerHTML = ""; // Clear the existing task list display
     let completedHTML = "";
     let incompleteHTML = "";
@@ -82,12 +84,22 @@ function listClicked(e) {
         taskList[targetElement.id].status = targetElement.checked; // update the task status
     }
     saveTaskList(); // Save the updated task list to local storage
-    display(); // Update the task list display
+    display(taskList); // Update the task list display
 }
 
 // Function to delete a specific index element
 function delItem(index) {
     taskList.splice(index, 1);
+}
+
+// Function to display filtered List
+function filterSearch(e){
+    e.preventDefault();
+    let checkValue = e.target.value; // value in the search input
+    // filter the tasks from taskList
+    const filteredTasks = taskList.filter((task)=>task.taskValue.includes(checkValue));
+    // Display the filtered tasks
+    display(filteredTasks);
 }
 
 // Function to save the task list to local storage
