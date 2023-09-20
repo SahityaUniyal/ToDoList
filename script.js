@@ -23,8 +23,6 @@ deleteAllBtn.addEventListener('click', delAll);
 taskListDisplay.addEventListener('click', listClicked);
 searchInput.addEventListener('input', filterSearch);
 
-
-
 // Initial Display of Tasks
 display(taskList);
 
