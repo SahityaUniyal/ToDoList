@@ -135,6 +135,21 @@ main{
 }
 
 @media only screen and (max-width: 425px){
+    #inputSection{
+        display: flex;
+        gap:0;
+        font-size: 1.1rem;
+    }
+    .task{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .add{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border: 1.6px solid grey;
+        border-left: none;
+    }
     .search-container{
         width: 100%;
     }
